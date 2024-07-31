@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+Mô tả: Bạn sẽ tạo một trang web để quản lý thư viện sách. Trang web này cho phép người dùng thêm sách mới, xóa sách, chỉnh sửa thông tin sách, và đánh dấu sách đã đọc. Bạn sẽ sử dụng JavaScript để quản lý các thao tác này, bao gồm truy xuất phần tử DOM, áp dụng CSS, quản lý thuộc tính, và tạo/xóa phần tử.
+Yêu cầu:
+HTML:
+Tạo một form để thêm sách mới với các trường: input (tên sách, tác giả) và button (để thêm sách).
+Tạo một danh sách (ul) để hiển thị các sách.
+Mỗi sách trong danh sách sẽ bao gồm tên sách, tác giả, một nút để xóa sách, một nút để chỉnh sửa thông tin sách, và một nút để đánh dấu đã đọc.
+CSS:
+Thêm một vài kiểu CSS cơ bản để làm cho giao diện đẹp hơn.
+Sử dụng CSS để thay đổi giao dsiện của các sách đã đọc (ví dụ: gạch ngang tên sách và đổi màu nền).
+JavaScript:
+Sử dụng DOM để truy xuất các phần tử và thêm sự kiện.
+Thêm sách mới vào danh sách khi nhấn nút "Thêm".
+Xóa sách khỏi danh sách khi nhấn nút "Xóa".
+Chỉnh sửa thông tin sách khi nhấn nút "Chỉnh sửa".
+Đánh dấu sách là đã đọc khi nhấn nút "Đã đọc".
+-->
+<h1>Libary Management</h1>
+<form action="" id="myForm">
+    <label for="">Author : </label>
+    <input type="text" id="author">
+    <br>
+    <label for="">Name :</label>
+    <input type="text" id="bookName">
+    <br>
+    <button type="button" onclick="addBook()">Add</button>
+</form>
+<ul id="bookList">
+
+
+</ul>
+<script>
+    function addBook() {
+
+        let authorName = document.getElementById(`author`).value;//
+        let bookName = document.getElementById(`bookName`).value;//
+        let bookList = document.getElementById(`bookList`);
+        if (authorName && bookName) {
+            let li = document.createElement('li');
+            li.innerHTML = `<p>Name : ${bookName} by Author ${authorName} </p>
+            <button onclick="editBook(this)">Edit</button>
+            <button onclick="deleteBook(this)">Delete</button>
+            <button onclick = markAsRead(this)>Read</button>`;
+            bookList.appendChild(li);
+
+           // <li>   </li>
+          document.getElementById(`author`).value = ``;
+          document.getElementById(`bookName`).value =``;
+               
+        } else {
+            alert(`please input author and book name`);
+            
+        }        
+    }
+    function deleteBook(button){
+        let li = button.parentElement;
+        li.remove();
+
+    }
+    function editBook(button) {
+        let li = button.parentElement;
+        let bookName= prompt(`Enter new book name`,li.querySelector(`p`).textContent);
+        if(bookName){
+            li.querySelector(`p`).textContent = bookName;
+        }
+        
+        
+    }
+    function markAsRead(button) {
+    let li = button.parentElement;
+    let strong = li.querySelector('p');
+    
+    if (strong.style.color === 'green') {
+        strong.style.color = ''; // Reset color if already read
+// Reset text decoration
+    } else {
+        strong.style.color = 'green'; // Change text color to green
+ // Add line-through effect
+    }
+}
+</script>
+</body>
+
+</html>
