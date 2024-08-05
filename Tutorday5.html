@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .errorNoti {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Form Validation</h1>
+    <form action="">
+        <div class="form-group">
+            <label for="">Username :</label>
+            <input type="text" id="username" required maxlength="16" onblur="validateUsername()"
+                onchange="validateUsername()">
+            <br>
+            <span id="errUsername" class="errorNoti"></span>
+        </div>
+        <div class="form-group">
+            <label for="">Password :</label>
+            <input type="password" id="password" required onblur="" onchange="">
+            <br>
+            <span id="errPassword" class="errorNoti"></span>
+        </div>
+        <div class="form-group">
+            <label for="">Phone Number :</label>
+            <input type="tel" id="phonenumber" onblur="validatePhoneNumber()" onchange="validatePhoneNumber()">
+            <br>
+            <span id="errPhoneNum" class="errorNoti"></span>
+        </div>
+        <div class="form-group">
+            <label for="">Gender :</label>
+            <input type="radio" id="male" name="gender" value="male" onchange="validateGender()">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female" onchange="validateGender()">
+            <label for="male">Female</label>
+            <br>
+            <span id="errGender" class="errorNoti"></span>
+        </div>
+        <div  class="form-group">
+            <label for="">Chuyên Ngành : </label>
+            <input type="checkbox" id="tkdh" name="major" value="TKĐH" onchange="validateMajor()">
+            <label for="">TKĐH</label>
+            <input type="checkbox" id="mk" name="major" value="MK" onchange="validateMajor()">
+            <label for="">Marketing</label>
+            <input type="checkbox" id="it" name="major" value="IT" onchange="validateMajor()">
+            <label for="">IT</label>
+            <br>
+            <span id="errCN"></span>
+
+        </div>
+        <div  class="form-group">
+            <label for="">Lớp : </label>
+            <select name="class" id="myclass" onchange="displayScore()">
+                <option value="SD1801">SD1801</option>
+                <option value="SD1802">SD1802</option>
+            </select>
+            <span id="errClass"></span>
+        </div>
+    
+            <div id="score"></div>
+            <span id="errScore"></span>
+
+       
+        <button type="button" onclick="checkInfo()">Check Info</button>
+    </form>
+    <script>
+        //Check Username
+        function validateUsername() {
+            let userName = document.getElementById("username");
+            let errNoti = document.getElementById("errUsername");
+            if (userName.value === '') {
+                errNoti.innerHTML = 'Please input UserName';
+                return false;
+                console.log(errNoti);
+            } else if (userName.value.length >= 16) {
+                errNoti.innerHTML = `Username can't be more than 16 characters`;
+                return false;
+
+            } else {
+                errNoti.innerHTML = ``;
+                return true;
+            }
+        }
+        // Check Password các bạn tự làm
+        // Check PhoneNumber
+        function validatePhoneNumber() {
+            let phoneNumer = document.getElementById("phonenumber").value;
+            let errPhone = document.getElementById("errPhoneNum");
+            let phoneRegex = /^[0-9]{10,11}$/;
+            if ((phoneNumer && !phoneRegex.test(phoneNumer))) {
+                errPhone.innerHTML = `Please input valid Phone Number( 10 -11 numbers)`;
+                return false;
+            } else {
+                errPhone.innerHTML = ``;
+                return true;
+            }
+        }
+        // check email các bạng tự nàm
+        // Check gender
+        function validateGender() {
+            // Lấy ra giá trị input thông qua name:gender đang đang được check(chọn)
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let errGender = document.getElementById("errGender");
+            if (!gender) {
+                errGender.innerHTML=`Please select your gender.`;
+                return false;
+                
+            } else {
+                errGender.innerHTML =``;
+                return true;
+            }
+
+        }
+        function validateMajor(){
+            let major = document.querySelectorAll('input[name="major"]:checked');
+            let errMajor= document.getElementById('errCN');
+            if (major.length === 0) {
+                errMajor.innerHTML = 'Vui lòng chọn chuyên ngành.';
+                return false;
+                
+            } else {
+                errMajor.innerHTML='';
+                return true;
+                
+            }
+
+        }
+        function displayScore(){
+            let myScore= document.getElementById('myclass').value;
+            let displayScore = document.getElementById('score');
+            if(myScore === 'SD1801'){
+                displayScore.innerHTML = '10 điểm';
+                return true;
+            }
+            else if(myScore === 'SD1802'){
+                displayScore.innerHTML='10đ';
+                return true;
+            }
+            else{
+                displayScore.innerHTML='';
+                return true;
+            }
+        }
+        function checkInfo() {
+            if(validateUsername()&& validatePhoneNumber()&&validateMajor()){
+            
+            let userName = document.getElementById("username").value;
+            let phoneNumer = document.getElementById("phonenumber").value;
+            let gender = document.querySelector('input[name="gender"]:checked').value;
+            let major = document.querySelectorAll('input[name="major"]:checked');
+            let myclass = document.getElementById('myclass').value;
+            let majorList = '';
+            for(let i = 0;i<major.length;i++){
+                majorList += major[i].value ;
+
+            }
+        
+            let info = `UserName : ${userName}
+            Phone Number : ${phoneNumer}
+            Gender : ${gender}, Major : ${majorList}
+            Class : ${myclass}` ;
+            alert(info);
+            }
+            else{
+                alert(`Please check your info`);
+            }
+            
+        }
+    </script>
+</body>
+
+</html>
