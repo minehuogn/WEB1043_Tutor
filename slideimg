@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <img id="playimg" src="anh1.png" alt="sliderimage">
+        <br>
+        <button type="button" onclick="pre()">Previous</button>
+        <button type="button" onclick="next()">Next</button>
+        <button type="button" onclick="play()">Play</button>
+        <button type="button" onclick="stop()">Stop</button>
+
+    </div>
+    <script>
+        let myImg = ['anh1.png', 'anh2.png', 'anh3.png', 'anh4.png'];
+        let currentIndex = 0;
+        let isInterval;
+        function pre() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                document.getElementById('playimg').src = myImg[currentIndex];
+            }
+        }
+        function next() {
+            if (currentIndex < myImg.length - 1) {
+
+                currentIndex++; // tăng index của ảnh
+                document.getElementById('playimg').src = myImg[currentIndex];
+            }
+        }
+        function play() {
+            isInterval= setInterval(next,1500);
+
+        }
+        function stop() {
+
+            clearInterval(isInterval);
+        }
+    </script>
+</body>
+
+</html>
