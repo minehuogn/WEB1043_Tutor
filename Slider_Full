@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="play()">
+    <img src="anh1.png" alt="" id="img1" width="300px" height="300px">
+    <button onclick="stop()">Stop</button>
+    <button onclick="play()">Play</button>
+    <button type="button" onclick="next()">Next</button>
+    <button type="button" onclick="pre()">Previous</button>
+    <!--SLide ảnh tự động chạy -->
+    <!--SLide ảnh có button previous và next-->
+    <!--SLide ảnh tự động chạy và có button stop bấm vào thì dừng,
+    // và button play, bấm vào thì chạy-->
+
+    <script>
+        let myImg = ['anh1.png', 'anh2.png', 'anh3.png', 'anh4.png'];
+        let currentIndex = 0; //Để array ảnh chạy bắt đầu từ ảnh 1;
+        let isInterval;// biến để check xem ảnh có đang tự động chạy
+        function pre() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                document.getElementById('img1').src=myImg[currentIndex];        
+            }         
+        }
+        function next() {
+            if (currentIndex < myImg.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            document.getElementById('img1').src = myImg[currentIndex];
+        }
+        function play() { 
+            if (!isInterval) {
+                //1s = 1000ms
+                isInterval = setInterval(next,1000);              
+            }
+         }
+         function stop() {
+            if (isInterval) {
+                clearInterval(isInterval);
+                isInterval = null;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
